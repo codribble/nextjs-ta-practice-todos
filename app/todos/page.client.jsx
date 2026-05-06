@@ -5,6 +5,7 @@ import { getCategories, getTodos } from "../api/todos";
 import TodoItem from "./_components/TodoItem";
 import { useSearchParams } from "next/navigation";
 import { TODO_CATEGORY } from "../utils/todo";
+import Headline from "../components/Headline";
 
 const ClientPage = () => {
   const [todos, setTodos] = useState([]);
@@ -39,11 +40,21 @@ const ClientPage = () => {
     ? todos.filter((t) => TODO_CATEGORY[t.category] === category)
     : todos;
 
+  const selectedCategory = category
+    ? categories.find((c) => TODO_CATEGORY[c.id] === category)
+    : "";
+
+  console.log(selectedCategory);
+
   return (
-    <div className="grow grid grid-cols-4 gap-4">
-      {filteredTodos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} categories={categories} />
-      ))}
+    <div className="grow">
+      <Headline title={`${selectedCategory.name || "전체"} 할 일 목록`} />
+
+      <div className="grid grid-cols-4 gap-4">
+        {filteredTodos.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} categories={categories} />
+        ))}
+      </div>
     </div>
   );
 };
