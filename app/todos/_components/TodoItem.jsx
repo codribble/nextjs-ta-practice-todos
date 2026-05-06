@@ -1,3 +1,4 @@
+import { TODO_CATEGORY } from "@/app/utils/todo";
 import Link from "next/link";
 
 const COMPLETED_COLOR = {
@@ -5,25 +6,26 @@ const COMPLETED_COLOR = {
   false: "text-red-500",
 };
 
-const TodoItem = ({ todo, categories, onClick }) => {
+const TodoItem = ({ todo, categories }) => {
   const category = categories.find((c) => c.id === todo.category);
+  const categoryToName = TODO_CATEGORY[category.id];
 
   //   console.log(todo);
+  //   console.log(categoryToName);
 
   return (
-    <div className="flex flex-col justify-between px-5 py-3 border rounded">
-      <div className="flex items-start gap-2">
-        <button className="shrink-0" onClick={() => onClick(category.id)}>
-          [{category.name}]
-        </button>
-        <Link href={`/todos/${todo.id}`} className="text-2xl">
-          {todo.title}
-        </Link>
-      </div>
+    <Link
+      href={`/todos/${todo.id}`}
+      className="flex flex-col justify-between px-5 py-3 border rounded"
+    >
+      <p className="flex gap-1 text-2xl">
+        <span className="shrink-0">[{category.name}]</span>
+        {todo.title}
+      </p>
       <p className={`text-right ${COMPLETED_COLOR[todo.completed]}`}>
         {todo.completed ? "완료" : "진행"}
       </p>
-    </div>
+    </Link>
   );
 };
 

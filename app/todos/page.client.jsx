@@ -3,10 +3,18 @@
 import { useEffect, useState } from "react";
 import { getCategories, getTodos } from "../api/todos";
 import TodoItem from "./_components/TodoItem";
+import { useSearchParams } from "next/navigation";
+import { TODO_CATEGORY } from "../utils/todo";
 
 const ClientPage = () => {
   const [todos, setTodos] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  // 필터링
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category") || "";
+
+  //   console.log(category);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -27,21 +35,14 @@ const ClientPage = () => {
 
   //   console.log(todos);
 
-  const handleClick = (id) => {
-    const filteredTodos = [...todos].filter((todo) => todo.category === id);
-
-    setTodos(filteredTodos);
-  };
+  const filteredTodos = category
+    ? todos.filter((t) => TODO_CATEGORY[t.category] === category)
+    : todos;
 
   return (
     <div className="grow grid grid-cols-4 gap-4">
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          categories={categories}
-          onClick={handleClick}
-        />
+      {filteredTodos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} categories={categories} />
       ))}
     </div>
   );
