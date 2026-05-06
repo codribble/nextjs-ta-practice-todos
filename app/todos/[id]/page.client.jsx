@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getTodo } from "@/app/api/todos";
 import { useParams } from "next/navigation";
+import { getTodo } from "@/app/api/todos";
 
 const ClientPage = () => {
   const { id } = useParams(); // 클라이언트에서 params 받는 방법 useParams();
   const [todo, setTodo] = useState([]);
 
-  console.log(id);
+  //   console.log(id);
 
   useEffect(() => {
     const fetchTodo = async () => {
@@ -20,9 +20,11 @@ const ClientPage = () => {
     fetchTodo();
   }, [id]);
 
-  console.log(todo);
-
-  return <div>asf</div>;
+  return (
+    <div>
+      <h2 className="text-2xl">{todo.title}</h2>
+    </div>
+  );
 };
 
 export default ClientPage;
