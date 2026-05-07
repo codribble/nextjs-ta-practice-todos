@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getTodo } from "@/app/api/todos";
+import Headline from "@/app/components/Headline";
 
 const ClientPage = () => {
   const { id } = useParams(); // 클라이언트에서 params 받는 방법 useParams();
@@ -21,8 +22,8 @@ const ClientPage = () => {
   }, [id]);
 
   return (
-    <div>
-      <h2 className="text-2xl">{todo.title}</h2>
+    <div className="grow">
+      <Headline title={todo.title} />
     </div>
   );
 };
