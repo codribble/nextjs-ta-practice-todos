@@ -1,4 +1,3 @@
-import { TODO_CATEGORY } from "@/app/utils/todo";
 import Link from "next/link";
 
 const COMPLETED_COLOR = {
@@ -7,18 +6,17 @@ const COMPLETED_COLOR = {
 };
 
 const TodoItem = ({ todo, categories }) => {
-  const category = categories.find((c) => c.id === todo.category);
-  const categoryToName = TODO_CATEGORY[category.id];
+  const category = categories.find((c) => c.id === todo.category) || {};
 
-  //   console.log(todo);
-  //   console.log(categoryToName);
+  // console.log(todo);
+  // console.log(category);
 
   return (
     <Link
       href={`/todos/${todo.id}`}
-      className="flex flex-col justify-between px-5 py-3 border rounded"
+      className="flex flex-col justify-between gap-5 px-5 py-3 border rounded"
     >
-      <p className="flex gap-1 text-2xl">
+      <p className="flex gap-1 text-xl">
         <span className="shrink-0">[{category.name}]</span>
         {todo.title}
       </p>

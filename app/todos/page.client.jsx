@@ -6,8 +6,10 @@ import TodoItem from "./_components/TodoItem";
 import { useSearchParams } from "next/navigation";
 import { TODO_CATEGORY } from "../utils/todo";
 import Headline from "../components/Headline";
+// import Loading from "../components/Loading";
 
 const ClientPage = () => {
+  // const [loading, setLoading] = useState(true);
   const [todos, setTodos] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -32,6 +34,7 @@ const ClientPage = () => {
 
     fetchTodos();
     fetchCategories();
+    // setLoading(false);
   }, []);
 
   //   console.log(todos);
@@ -40,11 +43,10 @@ const ClientPage = () => {
     ? todos.filter((t) => TODO_CATEGORY[t.category] === category)
     : todos;
 
-  const selectedCategory = category
-    ? categories.find((c) => TODO_CATEGORY[c.id] === category)
-    : "";
+  const selectedCategory =
+    categories.find((c) => TODO_CATEGORY[c.id] === category) || "";
 
-  console.log(selectedCategory);
+  // console.log(selectedCategory);
 
   return (
     <div className="grow">
